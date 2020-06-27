@@ -72,6 +72,8 @@ public class MaxFlow {
     }
 
     /**
+     * TimeComplexity of algorith mis O(V*E^2)
+     *
      * @param s Source vertex
      * @param t Sink vertex
      * @return max-flow in the graph
@@ -79,17 +81,17 @@ public class MaxFlow {
     public static int fordFulkerson(int s, int t) {
         int maxFlow = 0;
         int[] parent = new int[N];
-        while (bfs(s, t, parent)) {
+        while (bfs(s, t, parent)) { // (O(E) + O(V))*( O(E) )
             int pathFlow = Integer.MAX_VALUE;
 
             //Iterate path traveled in last bfs
-            for (int v = t; v != s; v = parent[v]) {
+            for (int v = t; v != s; v = parent[v]) {  //O(E)
                 int u = parent[v];
                 int capacity = edgeRecord[u][v].capacity;
                 pathFlow = Math.min(pathFlow, capacity);
             }
 
-            for (int v = t; v != s; v = parent[v]) {
+            for (int v = t; v != s; v = parent[v]) { //O(E)
                 int u = parent[v];
                 int capacityUToV = edgeRecord[u][v].capacity;
                 int capacityVToU = edgeRecord[v][u] != null ? edgeRecord[v][u].capacity : 0;
